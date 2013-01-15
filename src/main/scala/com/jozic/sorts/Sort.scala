@@ -78,7 +78,7 @@ object MergeSort extends Sort {
       for (z <- l to h) tmp(z) = a(z)
 
       while (i <= m && j <= h) {
-        if (tmp(i) < tmp(j)) {
+        if (tmp(i) <= tmp(j)) {
           a(k) = tmp(i)
           i += 1
         } else {
