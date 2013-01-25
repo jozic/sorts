@@ -5,10 +5,16 @@ import org.scalameter.{Parameters, Gen, PerformanceTest}
 import org.scalacheck.{Gen => SGen}
 import collection.Iterator
 import org.scalacheck.Gen.Params
+import org.scalameter.Executor.Measurer
 
 object SortBenchmark extends PerformanceTest.Quickbenchmark {
 
-  val sizes: Gen[Int] = Gen.range("size")(30, 150, 30)
+  override def measurer = new Measurer.Default with Measurer.PeriodicReinstantiation {
+    override val defaultFrequency = 1
+  }
+
+//  val sizes: Gen[Int] = Gen.range("size")(30, 150, 30)
+  val sizes: Gen[Int] = Gen.range("size")(3000, 15000, 3000)
 
   def randomArrays = arrays
 
@@ -33,6 +39,12 @@ object SortBenchmark extends PerformanceTest.Quickbenchmark {
   performance of "MergeSort" in {
     using(randomArrays) in {
       MergeSort.sort(_)
+    }
+  }
+
+  performance of "HeapSort" in {
+    using(randomArrays) in {
+      HeapSort.sort(_)
     }
   }
 

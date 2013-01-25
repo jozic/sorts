@@ -98,4 +98,13 @@ class SortSpec extends FunSpec with MustMatchers {
       assertStable(MergeSort)
     }
   }
+
+  describe("Heap sort") {
+    it("should sort correctly") {
+      testCorrectness(HeapSort)
+    }
+    it("should NOT be stable") {
+      assertNotStable(HeapSort, Array(s(1, 1), s(1, 2), s(5, 1), s(5, 2), s(3, 1), s(3, 2)))
+    }
+  }
 }

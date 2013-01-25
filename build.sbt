@@ -13,7 +13,7 @@ resolvers ++= Seq(
 )
 
 libraryDependencies ++= Seq(
-  "com.github.axel22" %% "scalameter" % "0.2" % "test",
+  "com.github.axel22" %% "scalameter" % "0.2.1-SNAPSHOT" % "test",
   "org.scalacheck" %% "scalacheck" % "1.10.0" % "test"
 )
 

@@ -1,5 +1,6 @@
 package com.jozic.sorts
 
+import annotation.tailrec
 
 trait Sort {
 
@@ -115,4 +116,30 @@ object MergeSort extends Sort {
 
 }
 
+object HeapSort extends Sort {
 
+  def sort[A: Ordering](a: Array[A]) = {
+    val ord = Ordering[A]
+    import ord._
+
+    @tailrec
+    def sink(k: Int, n: Int) {
+      val leftChildIndex = 2 * k + 1
+      if (leftChildIndex < n) {
+        val rightChildIndex = leftChildIndex + 1
+        val maxChildIndex = if (rightChildIndex < n && a(leftChildIndex) < a(rightChildIndex)) rightChildIndex else leftChildIndex
+        if (a(k) < a(maxChildIndex)) {
+          swap(a, k, maxChildIndex)
+          sink(maxChildIndex, n)
+        }
+      }
+    }
+
+    for (i <- a.length / 2 to 0 by -1) sink(i, a.length)
+    for (n <- a.length - 1 to 1 by -1) {
+      swap(a, 0, n)
+      sink(0, n)
+    }
+    a
+  }
+}
